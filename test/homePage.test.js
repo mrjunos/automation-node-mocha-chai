@@ -2,8 +2,6 @@ const { describe, it, after, before } = require('mocha')
 const Page = require('../lib/homePage')
 const chai = require ('chai')
 const expect = chai.expect
-const chaiAsPromised = require('chai-as-promised')
-chai.use(chaiAsPromised)
 
 process.on('unhandledRejection', () => {});
 
