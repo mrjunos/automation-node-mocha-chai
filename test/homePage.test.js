@@ -2,6 +2,8 @@ const { describe, it, after, before } = require('mocha')
 const Page = require('../lib/homePage')
 const chai = require ('chai')
 const expect = chai.expect
+const should = chai.should()
+const assert = chai.assert
 
 process.on('unhandledRejection', () => {});
 
@@ -10,6 +12,8 @@ process.on('unhandledRejection', () => {});
         describe ('Google search automated testing', async function () {
             this.timeout(50000)
             let driver, page
+
+            // Hooks
 
             beforeEach (async () => {
                 page = new Page()
@@ -21,15 +25,17 @@ process.on('unhandledRejection', () => {});
                 await page.quit()
             })
 
+            // Tests
+
             it ('find the input box and google search button', async () => {
                 const result = await page.findInputAndButton()
                 expect(result.inputEnabled).to.equal(true)
-                expect(result.buttonText).to.include('Google')
+                result.buttonText.should.include('Google')
             })
 
             it ('put keyword in search box and click search button', async () => {
                 const result = await page.submitKeywordAndGetResult();
-                expect(result.length).to.be.above(10)
+                assert.isAbove(result.length, 10)
             })
         })
     } catch (ex) {
